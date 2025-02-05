@@ -27,12 +27,10 @@ export function AddCategoryForm() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
 
-    // Get existing categories
     const existingCategories = JSON.parse(
       localStorage.getItem('expense_manager_categories') || '[]'
     )
 
-    // Check for duplicate category name (case-insensitive)
     const isDuplicate = existingCategories.some(
       (cat: { name: string }) => 
         cat.name.toLowerCase() === data.name.trim().toLowerCase()
@@ -48,13 +46,12 @@ export function AddCategoryForm() {
     }
 
     const newCategory = {
-      id: Date.now().toString(), // Change to string
+      id: Date.now().toString(),
       name: data.name.trim(),
     }
 
     storage.addCategory(newCategory)
     
-    // Dispatch storage event manually for cross-tab sync
     window.dispatchEvent(new Event('storage'))
 
     setIsSubmitting(false)

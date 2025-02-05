@@ -47,13 +47,10 @@ export function AddTransactionForm() {
       }
     }
 
-    // Initial load
     loadCategories()
 
-    // Listen for storage changes
     window.addEventListener('storage', loadCategories)
 
-    // Cleanup listener
     return () => {
       window.removeEventListener('storage', loadCategories)
     }
